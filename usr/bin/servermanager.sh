@@ -22,11 +22,11 @@ function isVirtualScreenRunning() {
 }
 
 function setupWineInBashRc() {
-    echo "Setting up Wine in bashrc"
+    echo ">>> Setting up Wine in bashrc"
     mkdir -p /winedata/WINE64
     if [ ! -d /winedata/WINE64/drive_c/windows ]; then
       cd /winedata
-      echo "Setting up WineConfig and waiting 15 seconds"
+      echo ">>> Setting up WineConfig and waiting 15 seconds"
       winecfg > /dev/null 2>&1
       sleep 15
     fi
@@ -40,7 +40,7 @@ EOF
 function isWineinBashRcExistent() {
     grep "wine" /etc/bash.bashrc > /dev/null
     if [[ $? -ne 0 ]]; then
-        echo "Checking if Wine is set in bashrc"
+        echo ">>> Checking if Wine is set in bashrc"
         setupWineInBashRc
     fi
 }
@@ -56,6 +56,7 @@ function startVirtualScreenAndRebootWine() {
 
 function installServer() {
     # force a fresh install of all
+    echo ">>> Doing a fresh install of the gameserver"
     isWineinBashRcExistent
     steamcmdinstaller.sh
     mkdir -p $USERDATA_PATH
@@ -63,7 +64,12 @@ function installServer() {
     cp /ownerswhitelist.txt.example $USERDATA_PATH/ownerswhitelist.txt
     cp /steam_appid.txt $GAME_PATH
     sed -i -e "s/###RANDOM###/$RANDOM/g" $CONFIGFILE_PATH
-    #sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$(hostname -I)/g" $CONFIGFILE_PATH
+    bash /steamcmd/steamcmd.sh +runscript /steamcmdinstall.txt
+}
+
+function updateServer() {
+    # force an update and validation
+    echo ">>> Doing an update of the gameserver"
     bash /steamcmd/steamcmd.sh +runscript /steamcmdinstall.txt
 }
 
@@ -72,6 +78,7 @@ function startServer() {
     if ! isVirtualScreenRunning; then
         startVirtualScreenAndRebootWine
     fi
+    echo ">>> Starting the gameserver"
     rm /tmp/.X1-lock 2> /dev/null
     cd /sonsoftheforest
     wine64 /sonsoftheforest/SonsOfTheForestDS.exe -userdatapath /sonsoftheforest/userdata
@@ -81,6 +88,9 @@ function startMain() {
     # Check if server is installed, if not try again
     if [ ! -f "/sonsoftheforest/SonsOfTheForestDS.exe" ]; then
         installServer
+    fi
+    if [ $ALWAYS_UPDATE_ON_START == 1 ]; then
+        updateServer
     fi
     startServer
 }

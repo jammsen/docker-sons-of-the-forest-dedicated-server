@@ -9,7 +9,8 @@ ENV WINEPREFIX=/winedata/WINE64 \
     TIMEZONE=Europe/Berlin \
     DEBIAN_FRONTEND=noninteractive \
     PUID=0 \
-    PGID=0 
+    PGID=0 \
+    ALWAYS_UPDATE_ON_START=1
 
 VOLUME ["/sonsoftheforest", "/steamcmd", "/winedata"]
 

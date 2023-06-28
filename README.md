@@ -26,6 +26,8 @@ services:
     container_name: sons-of-the-forest-dedicated-server
     image: jammsen/sons-of-the-forest-dedicated-server:latest
     restart: always
+    environment:
+      ALWAYS_UPDATE_ON_START: 1
     ports:
       - 8766:8766/udp
       - 27016:27016/udp
