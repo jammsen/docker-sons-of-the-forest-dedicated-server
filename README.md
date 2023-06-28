@@ -34,7 +34,7 @@ services:
       - 9700:9700/udp
     volumes:
       - ./steamcmd:/steamcmd
-      - ./game:/theforest
+      - ./game:/sonsoftheforest
       - ./winedata:/winedata
 ```
 
