@@ -2,8 +2,8 @@
 
 # SteamCMD APPID for sons-of-the-forest-dedicated-server
 GAME_PATH="/sonsoftheforest/"
-USERDATA_PATH="/sonsoftheforest/userdata/"
-CONFIGFILE_PATH="/sonsoftheforest/userdata/dedicatedserver.cfg"
+USERDATA_PATH="${USERDATA_PATH:-/sonsoftheforest/userdata}"
+CONFIGFILE_PATH="$USERDATA_PATH/dedicatedserver.cfg"
 
 function isServerRunning() {
     if ps axg | grep -F "SonsOfTheForestDS.exe" | grep -v -F 'grep' > /dev/null; then
@@ -60,10 +60,15 @@ function installServer() {
     isWineinBashRcExistent
     steamcmdinstaller.sh
     mkdir -p $USERDATA_PATH
-    cp /dedicatedserver.cfg.example $CONFIGFILE_PATH
-    cp /ownerswhitelist.txt.example $USERDATA_PATH/ownerswhitelist.txt
+
+    # only copy examples if no config file exists
+    if [ ! -f $CONFIGFILE_PATH ]; then
+        cp /dedicatedserver.cfg.example $CONFIGFILE_PATH
+        cp /ownerswhitelist.txt.example $USERDATA_PATH/ownerswhitelist.txt
+        sed -i -e "s/###RANDOM###/$RANDOM/g" $CONFIGFILE_PATH
+    fi
+
     cp /steam_appid.txt $GAME_PATH
-    sed -i -e "s/###RANDOM###/$RANDOM/g" $CONFIGFILE_PATH
     bash /steamcmd/steamcmd.sh +runscript /steamcmdinstall.txt
 }
 
@@ -81,7 +86,7 @@ function startServer() {
     echo ">>> Starting the gameserver"
     rm /tmp/.X1-lock 2> /dev/null
     cd /sonsoftheforest
-    wine64 /sonsoftheforest/SonsOfTheForestDS.exe -userdatapath /sonsoftheforest/userdata
+    wine64 /sonsoftheforest/SonsOfTheForestDS.exe -userdatapath $USERDATA_PATH
 }
 
 function startMain() {
