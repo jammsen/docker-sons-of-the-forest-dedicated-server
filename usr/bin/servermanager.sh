@@ -61,11 +61,15 @@ function installServer() {
     steamcmdinstaller.sh
     mkdir -p $USERDATA_PATH
 
-    # only copy examples if no config file exists
+    # only copy dedicatedserver.cfg if doesn't exist
     if [ ! -f $CONFIGFILE_PATH ]; then
         cp /dedicatedserver.cfg.example $CONFIGFILE_PATH
-        cp /ownerswhitelist.txt.example $USERDATA_PATH/ownerswhitelist.txt
         sed -i -e "s/###RANDOM###/$RANDOM/g" $CONFIGFILE_PATH
+    fi
+
+    # only copy ownerswhitelist.txt if doesn't exist
+    if [ ! -f $USERDATA_PATH/ownerswhitelist.txt ]; then
+        cp /ownerswhitelist.txt.example $USERDATA_PATH/ownerswhitelist.txt
     fi
 
     cp /steam_appid.txt $GAME_PATH
