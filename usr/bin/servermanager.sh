@@ -2,7 +2,6 @@
 
 # SteamCMD APPID for sons-of-the-forest-dedicated-server
 GAME_PATH="/sonsoftheforest/"
-USERDATA_PATH="${USERDATA_PATH:-/sonsoftheforest/userdata}"
 CONFIGFILE_PATH="$USERDATA_PATH/dedicatedserver.cfg"
 
 function isServerRunning() {
