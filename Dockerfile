@@ -10,7 +10,8 @@ ENV WINEPREFIX=/winedata/WINE64 \
     DEBIAN_FRONTEND=noninteractive \
     PUID=0 \
     PGID=0 \
-    ALWAYS_UPDATE_ON_START=1
+    ALWAYS_UPDATE_ON_START=1 \
+    USERDATA_PATH=/sonsoftheforest/userdata
 
 VOLUME ["/sonsoftheforest", "/steamcmd", "/winedata"]
 
