@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Important information**
-Please understand you are asking for support for the Docker-Image and Docker-Container. Im NOT the creator of the Dedicated-Gamerver itself, im not involved in programming that. If you need help for that,  you might want to ask here for topics related to that: https://steamcommunity.com/app/1326470/discussions/0/3808404524164518482/ 
+Please understand you are asking for support for the Docker-Image and Docker-Container. I'm NOT the creator of the Dedicated-Game-Server itself, i'm not involved in programming that. If you need help for that,  you might want to ask here for topics related to that: https://steamcommunity.com/app/1326470/discussions/0/3808404524164518482/ 
 
 **Describe the bug**
 A clear and concise description of what the bug is. 
