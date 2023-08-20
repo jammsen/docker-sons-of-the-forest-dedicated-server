@@ -6,6 +6,13 @@ body:
       value: |
         ## Important information
         Please understand you are asking for support for the Docker-Image and Docker-Container. I'm NOT the creator of the Dedicated-Game-Server itself, i'm not involved in programming that. If you need help for that, you might want to ask here for topics related to that: https://steamcommunity.com/app/1326470/discussions/0/3808404524164518482/
+  - type: checkboxes
+    id: understand-important-info
+    attributes:
+      label: Have you read the Important information text above
+      options:
+        - label: Yes i did
+          required: true
   - type: textarea
     id: current-behavior
     attributes:
