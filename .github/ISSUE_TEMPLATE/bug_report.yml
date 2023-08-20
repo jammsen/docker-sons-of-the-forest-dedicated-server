@@ -67,4 +67,4 @@ body:
       label: Additional context
       placeholder: Add any other context about the problem here, in as much detail as possible.
     validations:
-      required: true
+      required: false
