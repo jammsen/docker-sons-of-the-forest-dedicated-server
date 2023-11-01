@@ -2,14 +2,29 @@
 
 This includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
 
+## Do you need support for this Docker Image
+
+- What to do?
+  - Feel free to create a NEW issue
+    - It is okay to "reference" that you might have the same problem as the person in issue #number
+  - Follow the instructions and answer the questions of people who are willing to help you
+  - If your issue is done, close it
+    - I will Inactivity-Close any issue thats not been active for a week
+- What NOT to do?
+  - Dont re-use issues!
+    - You are most likely to chat/spam/harrass thoose participants who didnt agree to be part of your / a new problem and might be totally out of context!
+  - If this happens, i reserve the rights to lock the issue or delete the comments, you have been warned!
+
 ## What you need to run this
 
-- Basic understanding of Linux and Docker
+- Basic understanding of Docker, Linux and Networking (Port forward/NAT)
 
 ## Getting started
 
 1. Create 2 sub-directories on your Dockernode in your game-server-directory (`/srv/sonsoftheforest/steamcmd` and `/srv/sonsoftheforest/game`)
-2. Start the container with the following examples:
+2. Setup Port-Forwarning or NAT for the ports in the Docker-Compose file
+3. Start the container with the following examples:
+
 
 Bash:
 
@@ -40,7 +55,7 @@ services:
 
 ## Planned features in the future
 
-Nothing yet
+- Feel free to suggest something
 
 ## Software used
 
@@ -49,4 +64,4 @@ Nothing yet
 - Winbind
 - Wine
 - SteamCMD
-- SonsOfTheForest Dedicated Server
+- SonsOfTheForest Dedicated Server (APP-ID: 2465200)
