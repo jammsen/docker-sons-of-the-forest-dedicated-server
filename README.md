@@ -21,16 +21,14 @@ This includes a Sons of the Forest Dedicated Server based on Docker with Wine an
 
 ## Getting started
 
-1. Create 2 sub-directories on your Dockernode in your game-server-directory (`/srv/sonsoftheforest/steamcmd` and `/srv/sonsoftheforest/game`)
-2. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
-3. Start the container with the following examples:
-
-
-Bash:
-
-```console
-docker run --rm -i -t -p 8766:8766/udp -p 27016:27016/udp -p 9700:9700/udp -v $(pwd)/steamcmd:/steamcmd -v $(pwd)/game:/sonsoftheforest --name sons-of-the-forest-dedicated-server jammsen/sons-of-the-forest-dedicated-server:latest
-```
+1. Install Docker and docker-compose
+2. create a folder in your home dir like `docker-sotf`
+3. change into it and create the `docker-compose.yml` to the file below
+4. execute `docker-compose up` once until the server is up and running (100%)
+5. press ctrl+c to shut down the composition
+6. `nano /docker-sotf/game/userdata/dedicatedserver.cfg` change the config to your needs
+7. start the composition again with `docker-compose up -d` (to detach from it and let it run in the background)
+8. play
 
 Docker-Compose:
 
