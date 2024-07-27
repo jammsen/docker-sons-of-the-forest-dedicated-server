@@ -21,6 +21,10 @@ This includes a Sons of the Forest Dedicated Server based on Docker with Wine an
 
 ## Getting started
 
+We have very detailed instruction in our [Wiki](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/wiki) page.
+
+If you already hosted some containers, just follow these steps:
+
 1. Create 2 sub-directories on your Dockernode in your game-server-directory (`/srv/sonsoftheforest/steamcmd` and `/srv/sonsoftheforest/game`)
 2. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
 3. Start the container with the following examples:
