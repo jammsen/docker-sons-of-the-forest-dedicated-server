@@ -17,6 +17,7 @@
   "LogFilesEnabled": false,
   "TimestampLogFilenames": true,
   "TimestampLogEntries": true,
+  "SkipNetworkAccessibilityTest": false,
   "GameSettings": {},
   "CustomGameModeSettings": {}
 }

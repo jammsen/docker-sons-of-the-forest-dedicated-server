@@ -47,6 +47,7 @@ services:
     restart: always
     environment:
       ALWAYS_UPDATE_ON_START: 1
+      SKIP_NETWORK_ACCESSIBILITY_TEST: false
     ports:
       - 8766:8766/udp
       - 27016:27016/udp

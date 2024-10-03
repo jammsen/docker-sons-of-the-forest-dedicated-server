@@ -58,17 +58,17 @@ function installServer() {
     echo ">>> Doing a fresh install of the gameserver"
     isWineinBashRcExistent
     steamcmdinstaller.sh
-    mkdir -p $USERDATA_PATH
+    mkdir -p "$USERDATA_PATH"
 
     # only copy dedicatedserver.cfg if doesn't exist
-    if [ ! -f $CONFIGFILE_PATH ]; then
-        cp /dedicatedserver.cfg.example $CONFIGFILE_PATH
-        sed -i -e "s/###RANDOM###/$RANDOM/g" $CONFIGFILE_PATH
+    if [ ! -f "$CONFIGFILE_PATH" ]; then
+        cp /dedicatedserver.cfg.example "$CONFIGFILE_PATH"
+        sed -i -e "s/###RANDOM###/$RANDOM/g" "$CONFIGFILE_PATH"
     fi
 
     # only copy ownerswhitelist.txt if doesn't exist
     if [ ! -f $USERDATA_PATH/ownerswhitelist.txt ]; then
-        cp /ownerswhitelist.txt.example $USERDATA_PATH/ownerswhitelist.txt
+        cp /ownerswhitelist.txt.example "$USERDATA_PATH/ownerswhitelist.txt"
     fi
 
     cp /steam_appid.txt $GAME_PATH
@@ -88,8 +88,9 @@ function startServer() {
     fi
     echo ">>> Starting the gameserver"
     rm /tmp/.X1-lock 2> /dev/null
-    cd /sonsoftheforest
-    wine64 /sonsoftheforest/SonsOfTheForestDS.exe -userdatapath $USERDATA_PATH
+    # shellcheck disable=SC2164
+    cd "$GAME_PATH"
+    wine64 /sonsoftheforest/SonsOfTheForestDS.exe -userdatapath "$USERDATA_PATH"
 }
 
 function startMain() {
@@ -97,10 +98,19 @@ function startMain() {
     if [ ! -f "/sonsoftheforest/SonsOfTheForestDS.exe" ]; then
         installServer
     fi
-    if [ $ALWAYS_UPDATE_ON_START == 1 ]; then
+    if [[ ${ALWAYS_UPDATE_ON_START} == 1 ]]; then
         updateServer
+    fi
+    if [[ -n ${SKIP_NETWORK_ACCESSIBILITY_TEST+x} ]]; then
+        echo ">>> Setting SkipNetworkAccessibilityTest to '$SKIP_NETWORK_ACCESSIBILITY_TEST'"
+        # sed -E -i "s/SkipNetworkAccessibilityTest=[a-zA-Z]*/SkipNetworkAccessibilityTest=$SKIP_NETWORK_ACCESSIBILITY_TEST/" "$CONFIGFILE_PATH"
+        # shellcheck disable=SC2086
+        sed -E -i 's/"SkipNetworkAccessibilityTest":\s*(false|true)/"SkipNetworkAccessibilityTest": '$SKIP_NETWORK_ACCESSIBILITY_TEST'/' "$CONFIGFILE_PATH"
+        cat "$CONFIGFILE_PATH"
     fi
     startServer
 }
-
+echo ">>> Listing config options ..."
+echo "> ALWAYS_UPDATE_ON_START is set to: $ALWAYS_UPDATE_ON_START"
+echo "> SKIP_NETWORK_ACCESSIBILITY_TEST is set to: $SKIP_NETWORK_ACCESSIBILITY_TEST"
 startMain

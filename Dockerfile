@@ -1,4 +1,4 @@
-FROM jammsen/base:wine-stable-debian-bullseye
+FROM jammsen/base:wine-stable-debian-bookworm
 
 LABEL org.opencontainers.image.authors="Sebastian Schmidt"
 LABEL org.opencontainers.image.source="https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server"
@@ -11,6 +11,7 @@ ENV WINEPREFIX=/winedata/WINE64 \
     PUID=0 \
     PGID=0 \
     ALWAYS_UPDATE_ON_START=1 \
+    SKIP_NETWORK_ACCESSIBILITY_TEST=false \
     USERDATA_PATH=/sonsoftheforest/userdata
 
 VOLUME ["/sonsoftheforest", "/steamcmd", "/winedata"]
