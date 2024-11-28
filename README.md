@@ -1,4 +1,15 @@
-## Docker - Sons of the Forest Dedicated Server
+# Docker - Sons of the Forest Dedicated Server
+
+[![Build-Status master](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push.yml/badge.svg)](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push.yml)
+![Docker Pulls](https://img.shields.io/docker/pulls/jammsen/sons-of-the-forest-dedicated-server)
+![Docker Stars](https://img.shields.io/docker/stars/jammsen/sons-of-the-forest-dedicated-server)
+![Image Size](https://img.shields.io/docker/image-size/jammsen/sons-of-the-forest-dedicated-server/latest)
+[![Discord](https://img.shields.io/discord/532141442731212810?logo=discord&label=Discord&link=https%3A%2F%2Fdiscord.gg%2F7tacb9Q6tj)](https://discord.gg/7tacb9Q6tj)
+
+> [!TIP]
+> Do you want to chat with the community?
+>
+> **[Join us on Discord](https://discord.gg/7tacb9Q6tj)**
 
 This includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
 
