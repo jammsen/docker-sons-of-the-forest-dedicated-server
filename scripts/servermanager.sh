@@ -37,6 +37,7 @@ function setupWineInBashRc() {
     ei ">>> Setting up Wine in bashrc"
     mkdir -p /winedata/WINE64
     if [ ! -d /winedata/WINE64/drive_c/windows ]; then
+      # shellcheck disable=SC2164
       cd /winedata
       ei ">>> Setting up WineConfig and waiting 15 seconds"
       winecfg > /dev/null 2>&1
