@@ -38,7 +38,7 @@ We have very detailed instruction in our [Wiki](https://github.com/jammsen/docke
 
 If you already hosted some containers, just follow these steps:
 
-1. Create 3 sub-directories on your Dockernode in your game-server-directory (`game`, `steamcmd` and `winedata`)
+1. Create 1 sub-directory on your Dockernode in your game-server-directory (`game`)
 2. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
 3. Start the container with the following examples:
 
@@ -46,7 +46,7 @@ If you already hosted some containers, just follow these steps:
 ### Bash:
 
 ```console
-docker run --rm -i -t -p 8766:8766/udp -p 27016:27016/udp -p 9700:9700/udp -v $(pwd)/steamcmd:/home/steam/steamcmd -v $(pwd)/game:/sonsoftheforest --name sons-of-the-forest-dedicated-server jammsen/sons-of-the-forest-dedicated-server:latest
+docker run --rm -i -t -p 8766:8766/udp -p 27016:27016/udp -p 9700:9700/udp -v $(pwd)/game:/sonsoftheforest --name sons-of-the-forest-dedicated-server jammsen/sons-of-the-forest-dedicated-server:latest
 ```
 
 ### Docker-Compose:
