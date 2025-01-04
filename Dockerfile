@@ -34,7 +34,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     GAME_PATH="/sonsoftheforest" \
     GAME_USERDATA_PATH="/sonsoftheforest/userdata" \
     GAME_CONFIGFILE_PATH="/sonsoftheforest/userdata/dedicatedserver.cfg" \
-    STEAMCMD_PATH="/steamcmd" \
+    STEAMCMD_PATH="/home/steam/steamcmd" \
+    WINEDATA_PATH="/winedata" \
     # Wine/Xvfb-settings
     WINEARCH=win64 \
     WINEPREFIX="/winedata/WINE64" \
@@ -50,7 +51,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     
 
 # VOLUME ["/sonsoftheforest", "/steamcmd", "/winedata"]
-VOLUME ["${GAME_PATH}", "${STEAMCMD_PATH}", "${WINEPREFIX}"]
+VOLUME ["${GAME_PATH}", "${STEAMCMD_PATH}", "${WINEDATA_PATH}"]
 
 EXPOSE 8766/udp 27016/udp 9700/udp 
 
@@ -63,7 +64,8 @@ EXPOSE 8766/udp 27016/udp 9700/udp
 COPY --chmod=755 entrypoint.sh /
 COPY --chmod=755 scripts/ /scripts
 COPY --chmod=755 includes/ /includes
-COPY --chmod=644 dedicatedserver.cfg.example steam_appid.txt steamcmdinstall.txt ownerswhitelist.txt.example /
+COPY --chmod=644 configs/ownerswhitelist.txt.example /
+COPY --chmod=644 configs/dedicatedserver.cfg.example /
 COPY --chmod=755 gosu-amd64 /usr/local/bin/gosu
 
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \

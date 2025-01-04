@@ -29,7 +29,7 @@ fi
 
 chown -R "$APP_USER":"$APP_GROUP" "$APP_HOME"
 chown -R "$APP_USER":"$APP_GROUP" "$GAME_PATH"
-chown -R "$APP_USER":"$APP_GROUP" "$WINEPREFIX"
+chown -R "$APP_USER":"$APP_GROUP" "$WINEDATA_PATH"
 
 ew_nn "> id steam: " ; e "$(id steam)"
 

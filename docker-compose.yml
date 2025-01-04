@@ -12,6 +12,6 @@ services:
       - 27016:27016/udp
       - 9700:9700/udp
     volumes:
-      - ./steamcmd:/steamcmd
+      - ./steamcmd:/home/steam/steamcmd
       - ./game:/sonsoftheforest
       - ./winedata:/winedata

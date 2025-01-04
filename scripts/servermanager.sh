@@ -4,7 +4,8 @@
 # https://stackoverflow.com/a/13864829
 # https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02
 
-# set -e
+# Uncomment for debugging
+#set -x
 
 source /includes/colors.sh
 
@@ -41,18 +42,9 @@ function setupWineInBashRc() {
       winecfg > /dev/null 2>&1
       sleep 15
     fi
-#     cat >> /etc/bash.bashrc <<EOF
-# export WINEPREFIX=/winedata/WINE64
-# export WINEARCH=win64
-# export DISPLAY=:1.0
-# EOF
 }
 
 function startVirtualScreenAndRebootWine() {
-    # Start X Window Virtual Framebuffer
-    # export WINEPREFIX=/winedata/WINE64
-    # export WINEARCH=win64
-    # export DISPLAY=:1.0
     Xvfb :1 -screen 0 1024x768x24 &
     wineboot -r
 }
@@ -61,7 +53,6 @@ function installServer() {
     # force a fresh install of all
     ei ">>> Doing a fresh install of the gameserver"
     isWineinBashRcExistent
-    # steamcmdinstaller.sh
     mkdir -p "$GAME_USERDATA_PATH"
 
     # only copy dedicatedserver.cfg if doesn't exist
@@ -75,16 +66,13 @@ function installServer() {
         cp /ownerswhitelist.txt.example "$GAME_USERDATA_PATH/ownerswhitelist.txt"
     fi
 
-    cp /steam_appid.txt $GAME_PATH
     "${STEAMCMD_PATH}"/steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir "$GAME_PATH" +login anonymous +app_update 2465200 validate +quit
-    # bash /steamcmd/steamcmd.sh +runscript /steamcmdinstall.txt
 }
 
 function updateServer() {
     # force an update and validation
     ei ">>> Doing an update of the gameserver"
     "${STEAMCMD_PATH}"/steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir "$GAME_PATH" +login anonymous +app_update 2465200 validate +quit
-    # bash /steamcmd/steamcmd.sh +runscript /steamcmdinstall.txt
 }
 
 function startServer() {
@@ -93,7 +81,7 @@ function startServer() {
         startVirtualScreenAndRebootWine
     fi
     ei ">>> Starting the gameserver"
-    rm /tmp/.X1-lock 2> /dev/null
+    rm -f /tmp/.X1-lock 2> /dev/null
     # shellcheck disable=SC2164
     cd "$GAME_PATH"
     wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH"

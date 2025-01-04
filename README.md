@@ -30,24 +30,26 @@ This includes a Sons of the Forest Dedicated Server based on Docker with Wine an
 
 - Basic understanding of Docker, Linux and Networking (Port-Forwarding/NAT)
 
-## Getting started
+## Wiki
 
 We have very detailed instruction in our [Wiki](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/wiki) page.
 
+## Getting started
+
 If you already hosted some containers, just follow these steps:
 
-1. Create 2 sub-directories on your Dockernode in your game-server-directory (`/srv/sonsoftheforest/steamcmd` and `/srv/sonsoftheforest/game`)
+1. Create 3 sub-directories on your Dockernode in your game-server-directory (`game`, `steamcmd` and `winedata`)
 2. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
 3. Start the container with the following examples:
 
 
-Bash:
+### Bash:
 
 ```console
-docker run --rm -i -t -p 8766:8766/udp -p 27016:27016/udp -p 9700:9700/udp -v $(pwd)/steamcmd:/steamcmd -v $(pwd)/game:/sonsoftheforest --name sons-of-the-forest-dedicated-server jammsen/sons-of-the-forest-dedicated-server:latest
+docker run --rm -i -t -p 8766:8766/udp -p 27016:27016/udp -p 9700:9700/udp -v $(pwd)/steamcmd:/home/steam/steamcmd -v $(pwd)/game:/sonsoftheforest --name sons-of-the-forest-dedicated-server jammsen/sons-of-the-forest-dedicated-server:latest
 ```
 
-Docker-Compose:
+### Docker-Compose:
 
 ```yaml
 version: '3.9'
@@ -64,7 +66,7 @@ services:
       - 27016:27016/udp
       - 9700:9700/udp
     volumes:
-      - ./steamcmd:/steamcmd
+      - ./steamcmd:/home/steam/steamcmd
       - ./game:/sonsoftheforest
       - ./winedata:/winedata
 ```
