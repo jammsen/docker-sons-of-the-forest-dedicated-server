@@ -66,20 +66,19 @@ services:
       - 27016:27016/udp
       - 9700:9700/udp
     volumes:
-      - ./steamcmd:/home/steam/steamcmd
       - ./game:/sonsoftheforest
-      - ./winedata:/winedata
 ```
 
 ## Planned features in the future
 
-- Feel free to suggest something
+- Feel free to suggest features in the issues
 
 ## Software used
 
-- Debian Slim Stable
-- Xvfb
+- Debian Stable and SteamCMD via cm2network/steamcmd:root image as base-image
+- gosu
+- procps
 - Winbind
 - Wine
-- SteamCMD
+- Xvfb
 - SonsOfTheForest Dedicated Server (APP-ID: 2465200)

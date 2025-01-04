@@ -10,7 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
     && echo $TIMEZONE > /etc/timezone \
     && dpkg --add-architecture i386 \
     && apt-get update \
-    && apt-get install -y --no-install-recommends --no-install-suggests apt-transport-https gnupg2 procps software-properties-common wget winbind xvfb \
+    && apt-get install -y --no-install-recommends --no-install-suggests software-properties-common apt-transport-https gnupg2 procps winbind xvfb \
     && mkdir -pm755 /etc/apt/keyrings \
     && wget --output-document /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
     && wget --timestamping --directory-prefix=/etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bookworm/winehq-bookworm.sources \
