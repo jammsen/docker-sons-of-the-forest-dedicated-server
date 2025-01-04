@@ -5,6 +5,8 @@ services:
     image: jammsen/sons-of-the-forest-dedicated-server:latest
     restart: always
     environment:
+      PUID: 1000
+      PGID: 1000
       ALWAYS_UPDATE_ON_START: true
       SKIP_NETWORK_ACCESSIBILITY_TEST: true
     ports:
