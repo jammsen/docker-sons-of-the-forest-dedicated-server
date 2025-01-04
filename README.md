@@ -28,28 +28,28 @@ This includes a Sons of the Forest Dedicated Server based on Docker with Wine an
 
 ## What you need to run this
 
-- Basic understanding of Docker, Linux and Networking (Port-Forwarding/NAT)
+- Basic understanding of Docker, Docker Compose, Linux and Networking (Port-Forwarding/NAT)
 
 ## Wiki
 
-We have very detailed instruction in our [Wiki](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/wiki) page.
+> [!TIP]
+> Currently out-dated, because of Major refactoring, with breaking changes!
+
+~~We have very detailed instruction in our [Wiki](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/wiki) page.~~
 
 ## Getting started
 
 If you already hosted some containers, just follow these steps:
 
-1. Create 1 sub-directory on your Dockernode in your game-server-directory (`game`)
-2. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
-3. Start the container with the following examples:
+1. Go to the directory you want to host your gameserver on your Dockernode
+2. Create a sub-directory called `game`
+3. Download the [docker-compose.yml](docker-compose.yml) or use the following example
+4. Review the file and setup the settings you like
+5. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
+6. Start the container via Docker Compose
+7. (Tip: Extended config settings, which are not covered by Docker Compose, can be setup in the config-file of the server - You can find it at `game/userdata/dedicatedserver.cfg`)
 
-
-### Bash:
-
-```console
-docker run --rm -i -t -p 8766:8766/udp -p 27016:27016/udp -p 9700:9700/udp -v $(pwd)/game:/sonsoftheforest --name sons-of-the-forest-dedicated-server jammsen/sons-of-the-forest-dedicated-server:latest
-```
-
-### Docker-Compose:
+### Docker-Compose - Example
 
 ```yaml
 version: '3.9'
@@ -80,7 +80,7 @@ services:
 - Debian Stable and SteamCMD via cm2network/steamcmd:root image as base-image
 - gosu
 - procps
-- Winbind
-- Wine
-- Xvfb
+- winbind
+- wine
+- xvfb
 - SonsOfTheForest Dedicated Server (APP-ID: 2465200)
