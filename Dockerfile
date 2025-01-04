@@ -3,7 +3,7 @@ FROM cm2network/steamcmd:root AS wine-base
 ENV DEBIAN_FRONTEND=noninteractive \ 
     # Path-vars
     WINEPREFIX=/wine \
-    # Container-setttings
+    # Container-settings
     TIMEZONE=Europe/Berlin
 
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
@@ -40,7 +40,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     WINEARCH=win64 \
     WINEPREFIX="/winedata/WINE64" \
     DISPLAY=:1.0 \
-    # Container-setttings
+    # Container-settings
     TIMEZONE=Europe/Berlin \
     PUID=1000 \
     PGID=1000 \
@@ -50,16 +50,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     SKIP_NETWORK_ACCESSIBILITY_TEST=true
     
 
-# VOLUME ["/sonsoftheforest", "/steamcmd", "/winedata"]
 VOLUME ["${GAME_PATH}", "${STEAMCMD_PATH}", "${WINEDATA_PATH}"]
 
 EXPOSE 8766/udp 27016/udp 9700/udp 
-
-# RUN dpkg --add-architecture i386 \
-#     && apt-get update \
-#     && apt-get dist-upgrade -y \
-#     && apt-get install -y --no-install-recommends --no-install-suggests lib32gcc-s1 nano winbind xvfb \
-#     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --chmod=755 entrypoint.sh /
 COPY --chmod=755 scripts/ /scripts
@@ -73,5 +66,3 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
 
 ENTRYPOINT  ["/entrypoint.sh"]
 CMD ["/scripts/servermanager.sh"]
-
-# CMD ["servermanager.sh"]
