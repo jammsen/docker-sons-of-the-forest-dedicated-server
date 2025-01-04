@@ -57,8 +57,8 @@ services:
     image: jammsen/sons-of-the-forest-dedicated-server:latest
     restart: always
     environment:
-      ALWAYS_UPDATE_ON_START: 1
-      SKIP_NETWORK_ACCESSIBILITY_TEST: false
+      ALWAYS_UPDATE_ON_START: true
+      SKIP_NETWORK_ACCESSIBILITY_TEST: true
     ports:
       - 8766:8766/udp
       - 27016:27016/udp

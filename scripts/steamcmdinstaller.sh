@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 STEAMCMD_DIRECTORY="/steamcmd"
 STEAMCMD_SCRIPT="/steamcmd/steamcmd.sh"
