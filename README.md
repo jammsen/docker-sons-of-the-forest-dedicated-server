@@ -1,6 +1,6 @@
 # Docker - Sons of the Forest Dedicated Server
 
-[![Build-Status master](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push.yml/badge.svg)](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push.yml)
+[![Build-Status master](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push-prod.yml/badge.svg)](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push-prod.yml)
 ![Docker Pulls](https://img.shields.io/docker/pulls/jammsen/sons-of-the-forest-dedicated-server)
 ![Docker Stars](https://img.shields.io/docker/stars/jammsen/sons-of-the-forest-dedicated-server)
 ![Image Size](https://img.shields.io/docker/image-size/jammsen/sons-of-the-forest-dedicated-server/latest)
@@ -11,9 +11,19 @@
 >
 > **[Join us on Discord](https://discord.gg/7tacb9Q6tj)**
 
-This includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
+> [!WARNING]  
+> Update Jan-2025: This Docker-Image had a major refactoring including breaking changes in downwards-compability. This was done for removing dependency of "root" in the image, which caused various SteamCMD, NAS, QNAP, Synology and Portainer problems. Also the Docker-Base-Image was switched and there was better process-handling added to make sure the process exits cleanly, no matter how Docker or the User stops the server.
+>
+> It is recommended to do a fresh install, via the new readme in a fresh directory to understand what changed and work backwards to adapt the changes, or migrate the savegame from the old server to the new one, up to you. If you need help, feel free to join the Discord server and ask in the right channel for the game. 
 
-## Do you need support for this Docker Image
+> [!NOTE]  
+> If you are looking for the TheForest version, please look here: https://github.com/jammsen/docker-the-forest-dedicated-server
+
+## What is included?
+
+This repository includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
+
+## Do you need support for this Docker-Image?
 
 - What to do?
   - Feel free to create a NEW issue
