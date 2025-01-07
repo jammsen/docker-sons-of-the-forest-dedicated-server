@@ -1,5 +1,0 @@
-@sSteamCmdForcePlatformType windows
-force_install_dir /sonsoftheforest
-login anonymous
-app_update 2465200 validate
-quit

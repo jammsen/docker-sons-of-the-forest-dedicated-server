@@ -1,6 +1,6 @@
 # Docker - Sons of the Forest Dedicated Server
 
-[![Build-Status master](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push.yml/badge.svg)](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push.yml)
+[![Build-Status master](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push-prod.yml/badge.svg)](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/blob/master/.github/workflows/docker-build-and-push-prod.yml)
 ![Docker Pulls](https://img.shields.io/docker/pulls/jammsen/sons-of-the-forest-dedicated-server)
 ![Docker Stars](https://img.shields.io/docker/stars/jammsen/sons-of-the-forest-dedicated-server)
 ![Image Size](https://img.shields.io/docker/image-size/jammsen/sons-of-the-forest-dedicated-server/latest)
@@ -11,9 +11,19 @@
 >
 > **[Join us on Discord](https://discord.gg/7tacb9Q6tj)**
 
-This includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
+> [!WARNING]  
+> Update Jan-2025: This Docker-Image had a major refactoring including breaking changes in downwards-compability. This was done for removing dependency of "root" in the image, which caused various SteamCMD, NAS, QNAP, Synology and Portainer problems. Also the Docker-Base-Image was switched and there was better process-handling added to make sure the process exits cleanly, no matter how Docker or the User stops the server.
+>
+> It is recommended to do a fresh install, via the new readme in a fresh directory to understand what changed and work backwards to adapt the changes, or migrate the savegame from the old server to the new one, up to you. If you need help, feel free to join the Discord server and ask in the right channel for the game. 
 
-## Do you need support for this Docker Image
+> [!NOTE]  
+> If you are looking for the TheForest version, please look here: https://github.com/jammsen/docker-the-forest-dedicated-server
+
+## What is included?
+
+This repository includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
+
+## Do you need support for this Docker-Image?
 
 - What to do?
   - Feel free to create a NEW issue
@@ -28,26 +38,28 @@ This includes a Sons of the Forest Dedicated Server based on Docker with Wine an
 
 ## What you need to run this
 
-- Basic understanding of Docker, Linux and Networking (Port-Forwarding/NAT)
+- Basic understanding of Docker, Docker Compose, Linux and Networking (Port-Forwarding/NAT)
+
+## Wiki
+
+> [!TIP]
+> Currently out-dated, because of Major refactoring, with breaking changes!
+
+~~We have very detailed instruction in our [Wiki](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/wiki) page.~~
 
 ## Getting started
 
-We have very detailed instruction in our [Wiki](https://github.com/jammsen/docker-sons-of-the-forest-dedicated-server/wiki) page.
-
 If you already hosted some containers, just follow these steps:
 
-1. Create 2 sub-directories on your Dockernode in your game-server-directory (`/srv/sonsoftheforest/steamcmd` and `/srv/sonsoftheforest/game`)
-2. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
-3. Start the container with the following examples:
+1. Go to the directory you want to host your gameserver on your Dockernode
+2. Create a sub-directory called `game`
+3. Download the [docker-compose.yml](docker-compose.yml) or use the following example
+4. Review the file and setup the settings you like
+5. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
+6. Start the container via Docker Compose
+7. (Tip: Extended config settings, which are not covered by Docker Compose, can be setup in the config-file of the server - You can find it at `game/userdata/dedicatedserver.cfg`)
 
-
-Bash:
-
-```console
-docker run --rm -i -t -p 8766:8766/udp -p 27016:27016/udp -p 9700:9700/udp -v $(pwd)/steamcmd:/steamcmd -v $(pwd)/game:/sonsoftheforest --name sons-of-the-forest-dedicated-server jammsen/sons-of-the-forest-dedicated-server:latest
-```
-
-Docker-Compose:
+### Docker-Compose - Example
 
 ```yaml
 version: '3.9'
@@ -57,27 +69,28 @@ services:
     image: jammsen/sons-of-the-forest-dedicated-server:latest
     restart: always
     environment:
-      ALWAYS_UPDATE_ON_START: 1
-      SKIP_NETWORK_ACCESSIBILITY_TEST: false
+      PUID: 1000
+      PGID: 1000
+      ALWAYS_UPDATE_ON_START: true
+      SKIP_NETWORK_ACCESSIBILITY_TEST: true
     ports:
       - 8766:8766/udp
       - 27016:27016/udp
       - 9700:9700/udp
     volumes:
-      - ./steamcmd:/steamcmd
       - ./game:/sonsoftheforest
-      - ./winedata:/winedata
 ```
 
 ## Planned features in the future
 
-- Feel free to suggest something
+- Feel free to suggest features in the issues
 
 ## Software used
 
-- Debian Slim Stable
-- Xvfb
-- Winbind
-- Wine
-- SteamCMD
+- Debian Stable and SteamCMD via cm2network/steamcmd:root image as base-image
+- gosu
+- procps
+- winbind
+- wine
+- xvfb
 - SonsOfTheForest Dedicated Server (APP-ID: 2465200)
