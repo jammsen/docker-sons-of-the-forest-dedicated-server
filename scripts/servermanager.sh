@@ -35,10 +35,10 @@ function isWineinBashRcExistent() {
 
 function setupWineInBashRc() {
     ei ">>> Setting up Wine in bashrc"
-    mkdir -p /winedata/WINE64
-    if [ ! -d /winedata/WINE64/drive_c/windows ]; then
+    mkdir -p "$WINEPREFIX"
+    if [ ! -d "$WINEPREFIX"/drive_c/windows ]; then
       # shellcheck disable=SC2164
-      cd /winedata
+      cd "$WINEDATA_PATH"
       ei ">>> Setting up WineConfig and waiting 15 seconds"
       winecfg > /dev/null 2>&1
       sleep 15
