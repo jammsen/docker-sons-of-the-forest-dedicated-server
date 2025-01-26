@@ -65,5 +65,8 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
     && echo $TIMEZONE > /etc/timezone \
     && mkdir -p ${WINEPREFIX}
 
+HEALTHCHECK --interval=10s --timeout=10s --start-period=30s --retries=3 \ 
+CMD pgrep -x "SonsOfTheForest" >/dev/null 2>&1 || exit 1
+
 ENTRYPOINT  ["/entrypoint.sh"]
 CMD ["/scripts/servermanager.sh"]
