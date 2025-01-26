@@ -60,6 +60,11 @@ function installServer() {
     isWineinBashRcExistent
     mkdir -p "$GAME_USERDATA_PATH"
 
+    # only copy steam_appid.txt if doesn't exist
+    if [ ! -f "$GAME_PATH" ]; then
+        cp /steam_appid.txt "$GAME_PATH"/steam_appid.txt
+    fi
+
     # only copy dedicatedserver.cfg if doesn't exist
     if [ ! -f "$GAME_CONFIGFILE_PATH" ]; then
         cp /dedicatedserver.cfg.example "$GAME_CONFIGFILE_PATH"

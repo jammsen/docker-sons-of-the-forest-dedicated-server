@@ -57,6 +57,7 @@ EXPOSE 8766/udp 27016/udp 9700/udp
 COPY --chmod=755 entrypoint.sh /
 COPY --chmod=755 scripts/ /scripts
 COPY --chmod=755 includes/ /includes
+COPY --chmod=644 configs/steam_appid.txt /
 COPY --chmod=644 configs/ownerswhitelist.txt.example /
 COPY --chmod=644 configs/dedicatedserver.cfg.example /
 COPY --chmod=755 gosu-amd64 /usr/local/bin/gosu
