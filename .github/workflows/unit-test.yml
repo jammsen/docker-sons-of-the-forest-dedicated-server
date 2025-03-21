@@ -73,6 +73,9 @@ jobs:
               echo "$(date '+%H:%M:%S') - Waiting for server to start..."
               sleep 5
             done
+            echo "Server successfully started"
+            printf "\e[0;32m%s\e[0m\n" "*****Container LOGS*****"
+            docker logs sons-of-the-forest-dedicated-server
 
       - name: Test if port 8766, 27015 and 27016 are listening
         run: |
