@@ -2,6 +2,10 @@
 
 [Back to main](README.md#changelog)
 
+## 2025-03-29
+
+- Added FILTER_SHADER_AND_MESH environment variable to filter out shader and mesh-related warning/error messages from the logs @jammsen (#72)
+
 ## 2025-01-26
 
 - Added Healthcheck @jammsen (#69)

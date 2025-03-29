@@ -94,7 +94,16 @@ function startServer() {
     rm -f /tmp/.X1-lock 2> /dev/null
     # shellcheck disable=SC2164
     cd "$GAME_PATH"
-    wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH"
+    
+    if [[ ${FILTER_SHADER_AND_MESH} == true ]]; then
+        ei ">>> Shader and Mesh warning/error filtering is enabled"
+        # Start the server and pipe through grep to filter out shader warnings
+        wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH" 2>&1 | grep -v -E ".*WARNING: Shader.*|.*ERROR: Shader.*|.*No mesh data available for mesh.*|.*Couldn't create a Convex Mesh from source.*|.*The referenced script.*|.*Could not find video decode shader pass.*"
+    else
+        ei ">>> Shader warning filtering is disabled"
+        # Start the server normally without filtering
+        wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH"
+    fi
 }
 
 function stopServer() {
@@ -140,6 +149,7 @@ do
     ei ">>> Listing config options ..."
     e "> ALWAYS_UPDATE_ON_START is set to: $ALWAYS_UPDATE_ON_START"
     e "> SKIP_NETWORK_ACCESSIBILITY_TEST is set to: $SKIP_NETWORK_ACCESSIBILITY_TEST"
+    e "> FILTER_SHADER_AND_MESH is set to: $FILTER_SHADER_AND_MESH"
 
     startMain &
     START_MAIN_PID="$!"

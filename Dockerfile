@@ -44,6 +44,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     TIMEZONE=Europe/Berlin \
     PUID=1000 \
     PGID=1000 \
+    FILTER_SHADER_AND_MESH=true \
     # SteamCMD-settings
     ALWAYS_UPDATE_ON_START=true \
     # Gameserver-start-settings-overrides

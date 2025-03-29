@@ -102,6 +102,7 @@ services:
       PGID: 1000
       ALWAYS_UPDATE_ON_START: true
       SKIP_NETWORK_ACCESSIBILITY_TEST: true
+      FILTER_SHADER_AND_MESH: true
     ports:
       - 8766:8766/udp
       - 27016:27016/udp
@@ -109,6 +110,14 @@ services:
     volumes:
       - ./game:/sonsoftheforest
 ```
+
+> **Note:** The `FILTER_SHADER_AND_MESH` environment variable (default: true) controls whether shader-related warning messages are filtered from the container logs. When set to true, it removes the following messages keeping your logs cleaner. Set to false if you want to see all shader warnings.
+> * Shader XYZ shader is not supported on this GPU
+> * WARNING: Shader Unsupported: 'XYZ' - All subshaders removed
+> * WARNING: Shader Did you use XYZ and omit this platform?
+> * WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+> * No mesh data available for mesh XYZ
+> * Couldn't create a Convex Mesh from source mesh XYZ
 
 ## Planned features in the future
 
