@@ -66,6 +66,9 @@ jobs:
             # Set the timezone to Germany (Central European Time)
             export TZ=Europe/Berlin
             
+            # Source color functions
+            source ./includes/colors.sh
+            
             # Track last log position to avoid duplicate output
             LAST_LOG_LINES=0
             
@@ -75,19 +78,45 @@ jobs:
             
               if [ $ELAPSED_TIME -gt $TIMEOUT_SECONDS ]; then
                 echo "Timeout reached. Server failed to start within $TIMEOUT_SECONDS seconds."
-                printf "\e[0;32m%s\e[0m\n" "*****Final Container LOGS*****"
+                es "*****Final Container LOGS*****"
                 docker logs sons-of-the-forest-dedicated-server
                 exit 1
               fi
             
-              # Show current status
-              printf "\e[0;33m%s\e[0m\n" "$(date '+%H:%M:%S') - Waiting for server to start... (${ELAPSED_TIME}s elapsed)"
+              # Show current status with warning color
+              ew ">>> $(date '+%H:%M:%S') - Waiting for server to start... (${ELAPSED_TIME}s elapsed)"
               
               # Get current log lines count and show new logs if any
               CURRENT_LOG_LINES=$(docker logs sons-of-the-forest-dedicated-server 2>&1 | wc -l)
               if [ $CURRENT_LOG_LINES -gt $LAST_LOG_LINES ]; then
-                printf "\e[0;32m%s\e[0m\n" "--- Recent container logs ---"
-                docker logs sons-of-the-forest-dedicated-server 2>&1 | tail -n +$((LAST_LOG_LINES + 1)) | head -n $((CURRENT_LOG_LINES - LAST_LOG_LINES))
+                # Print green box header (120 chars wide)
+                es_nn "╭"
+                for i in $(seq 1 118); do es_nn "─"; done
+                es "╮"
+                es_nn "│"
+                printf "%-118s" " Recent container logs"
+                es "│"
+                
+                # Get new log lines and format them in the box
+                docker logs sons-of-the-forest-dedicated-server 2>&1 | tail -n +$((LAST_LOG_LINES + 1)) | head -n $((CURRENT_LOG_LINES - LAST_LOG_LINES)) | while IFS= read -r line; do
+                  # Truncate long lines to fit in box (116 chars to leave space for padding)
+                  if [ ${#line} -gt 116 ]; then
+                    truncated_line="${line:0:113}..."
+                  else
+                    truncated_line="$line"
+                  fi
+                  
+                  # Add box borders with proper padding
+                  es_nn "│"
+                  printf " %-116s " "$truncated_line"
+                  es "│"
+                done
+                
+                # Print green box footer
+                es_nn "╰"
+                for i in $(seq 1 118); do es_nn "─"; done
+                es "╯"
+                
                 LAST_LOG_LINES=$CURRENT_LOG_LINES
               fi
               
@@ -96,7 +125,7 @@ jobs:
             done
             
             echo "Server successfully started"
-            printf "\e[0;32m%s\e[0m\n" "*****Final Container LOGS*****"
+            es "*****Final Container LOGS*****"
             docker logs sons-of-the-forest-dedicated-server
 
       - name: Test if port 8766, 27015 and 27016 are listening
