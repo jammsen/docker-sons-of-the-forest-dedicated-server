@@ -89,34 +89,10 @@ jobs:
               # Get current log lines count and show new logs if any
               CURRENT_LOG_LINES=$(docker logs sons-of-the-forest-dedicated-server 2>&1 | wc -l)
               if [ $CURRENT_LOG_LINES -gt $LAST_LOG_LINES ]; then
-                # Print green box header (120 chars wide)
-                es_nn "╭"
-                for i in $(seq 1 118); do es_nn "─"; done
-                es "╮"
-                es_nn "│"
-                printf "%-118s" " Recent container logs"
-                es "│"
-                
-                # Get new log lines and format them in the box
-                docker logs sons-of-the-forest-dedicated-server 2>&1 | tail -n +$((LAST_LOG_LINES + 1)) | head -n $((CURRENT_LOG_LINES - LAST_LOG_LINES)) | while IFS= read -r line; do
-                  # Truncate long lines to fit in box (116 chars to leave space for padding)
-                  if [ ${#line} -gt 116 ]; then
-                    truncated_line="${line:0:113}..."
-                  else
-                    truncated_line="$line"
-                  fi
-                  
-                  # Add box borders with proper padding
-                  es_nn "│"
-                  printf " %-116s " "$truncated_line"
-                  es "│"
-                done
-                
-                # Print green box footer
-                es_nn "╰"
-                for i in $(seq 1 118); do es_nn "─"; done
-                es "╯"
-                
+                es ">>> Recent container logs"
+                es "╭─────────────────────────────────────────────────────────────────────────────────────────────────────╮"
+                docker logs sons-of-the-forest-dedicated-server 2>&1 | tail -n +$((LAST_LOG_LINES + 1)) | head -n $((CURRENT_LOG_LINES - LAST_LOG_LINES))
+                es "╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯"
                 LAST_LOG_LINES=$CURRENT_LOG_LINES
               fi
               

@@ -48,7 +48,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     # SteamCMD-settings
     ALWAYS_UPDATE_ON_START=true \
     # Gameserver-start-settings-overrides
-    SKIP_NETWORK_ACCESSIBILITY_TEST=true
+    SKIP_NETWORK_ACCESSIBILITY_TEST=false
     
 
 VOLUME ["${GAME_PATH}"]
