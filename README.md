@@ -102,7 +102,7 @@ services:
       PGID: 1000
       ALWAYS_UPDATE_ON_START: true
       SKIP_NETWORK_ACCESSIBILITY_TEST: true
-      FILTER_SHADER_AND_MESH: true
+      FILTER_SHADER_AND_MESH_AND_WINE_DEBUG: true
     ports:
       - 8766:8766/udp
       - 27016:27016/udp
@@ -111,13 +111,22 @@ services:
       - ./game:/sonsoftheforest
 ```
 
-> **Note:** The `FILTER_SHADER_AND_MESH` environment variable (default: true) controls whether shader-related warning messages are filtered from the container logs. When set to true, it removes the following messages keeping your logs cleaner. Set to false if you want to see all shader warnings.
+> **Note:** The `FILTER_SHADER_AND_MESH_AND_WINE_DEBUG` environment variable (default: true) controls whether Wine debug-logs and shader-related warning messages are filtered from the container logs. When set to true, it removes the following messages keeping your logs cleaner. Set to false if you want to see all shader warnings.
 > * Shader XYZ shader is not supported on this GPU
 > * WARNING: Shader Unsupported: 'XYZ' - All subshaders removed
 > * WARNING: Shader Did you use XYZ and omit this platform?
 > * WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
 > * No mesh data available for mesh XYZ
 > * Couldn't create a Convex Mesh from source mesh XYZ
+> * 0060:fixme:mountmgr:harddisk_ioctl The DISK_PARTITION_INFO and DISK_DETECTION_INFO structures will not be filled
+> * 0240:fixme:wbemprox:enum_class_object_Next timeout not supported
+> * 0060:fixme:mountmgr:query_property Faking StorageDeviceProperty data
+> * 013c:fixme:ntdll:EtwEventSetInformation (deadbeef, 2, 00006FFFF011313C, 31) stub
+> * 0250:fixme:kernelbase:AppPolicyGetThreadInitializationType FFFFFFFFFFFFFFFA, 00007307F05EFF50
+> * 013c:fixme:system:NtUserGetDisplayConfigBufferSizes only returning active paths
+> * 013c:fixme:system:NtUserQueryDisplayConfig only returning active paths
+> * 013c:fixme:system:NtUserQueryDisplayConfig setting toplogyid to DISPLAYCONFIG_TOPOLOGY_INTERNAL
+> * 023c:fixme:cryptnet:check_ocsp_response_info check responder id
 
 ## Planned features in the future
 

@@ -44,11 +44,11 @@ ENV DEBIAN_FRONTEND=noninteractive \
     TIMEZONE=Europe/Berlin \
     PUID=1000 \
     PGID=1000 \
-    FILTER_SHADER_AND_MESH=true \
+    FILTER_SHADER_AND_MESH_AND_WINE_DEBUG=true \
     # SteamCMD-settings
     ALWAYS_UPDATE_ON_START=true \
     # Gameserver-start-settings-overrides
-    SKIP_NETWORK_ACCESSIBILITY_TEST=false
+    SKIP_NETWORK_ACCESSIBILITY_TEST=true
     
 
 VOLUME ["${GAME_PATH}"]

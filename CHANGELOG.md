@@ -4,7 +4,7 @@
 
 ## 2025-03-29
 
-- Added FILTER_SHADER_AND_MESH environment variable to filter out shader and mesh-related warning/error messages from the logs @jammsen (#72)
+- Added FILTER_SHADER_AND_MESH_AND_WINE_DEBUG environment variable to filter out shader and mesh-related warning/error messages and Wine debug-logs from the logs @jammsen (#72)
 
 ## 2025-01-26
 
