@@ -98,17 +98,17 @@ function startServer() {
     if [[ ${FILTER_SHADER_AND_MESH_AND_WINE_DEBUG} == true ]]; then
         ei ">>> Shader and Mesh warning/error filtering is enabled"
         # Start the server without output buffering and pipe through grep to filter out shader warnings
-        # If you want to use stdbuf, uncomment the next lines and build the image yourself
         WINEDEBUG=-all stdbuf -oL -eL wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH" 2>&1 | \
         stdbuf -oL grep -v -E ".*WARNING: Shader.*|.*ERROR: Shader.*|.*No mesh data available for mesh.*|.*Couldn't create a Convex Mesh from source.*|.*The referenced script.*|.*Could not find video decode shader pass.*"
         # Start the server with output buffering and pipe through grep to filter out shader warnings
+        # If you want to NOT use stdbuf, comment out the above line and uncomment the next lines and build the image yourself
         #WINEDEBUG=-all wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH" 2>&1 | grep -v -E ".*WARNING: Shader.*|.*ERROR: Shader.*|.*No mesh data available for mesh.*|.*Couldn't create a Convex Mesh from source.*|.*The referenced script.*|.*Could not find video decode shader pass.*"
     else
         ei ">>> Shader warning filtering is disabled"
         # Start the server without output buffering and without filtering
-        # If you want to use stdbuf, uncomment the next line and build the image yourself
         stdbuf -oL -eL wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH"
         # Start the server with output buffering and pipe through grep to filter out shader warnings
+        # If you want to NOT use stdbuf, comment out the above line and uncomment the next line and build the image yourself
         #wine64 "$GAME_PATH"/SonsOfTheForestDS.exe -userdatapath "$GAME_USERDATA_PATH"
     fi
 }
