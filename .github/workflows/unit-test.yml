@@ -100,7 +100,7 @@ jobs:
               sleep 5
             done
             
-            echo "Server successfully started"
+            echo "Server successfully started in $ELAPSED_TIME seconds"
             es "*****Final Container LOGS*****"
             docker logs sons-of-the-forest-dedicated-server
 
