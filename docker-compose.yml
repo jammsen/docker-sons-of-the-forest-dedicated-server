@@ -9,6 +9,7 @@ services:
       PGID: 1000
       ALWAYS_UPDATE_ON_START: true
       SKIP_NETWORK_ACCESSIBILITY_TEST: true
+      FILTER_SHADER_AND_MESH_AND_WINE_DEBUG: true
     ports:
       - 8766:8766/udp
       - 27016:27016/udp
