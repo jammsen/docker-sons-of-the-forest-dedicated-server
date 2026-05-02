@@ -1,4 +1,4 @@
-FROM cm2network/steamcmd:root AS wine-base
+FROM cm2network/steamcmd:root-bookworm AS wine-base
 
 ENV DEBIAN_FRONTEND=noninteractive \ 
     # Path-vars
