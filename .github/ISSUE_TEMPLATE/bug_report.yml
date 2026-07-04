@@ -1,5 +1,7 @@
-name: "Bug report"
-description: Create a bug report or help us improve things
+name: "🐞 Bug report"
+description: Create a bug report to help us improve things
+labels: ["bug"]
+title: "[Bug Report] Your descriptive title here!"
 body:
   - type: markdown
     attributes:

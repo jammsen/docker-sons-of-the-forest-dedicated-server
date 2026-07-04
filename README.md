@@ -19,26 +19,55 @@
 > [!NOTE]  
 > If you are looking for the TheForest version, please look here: https://github.com/jammsen/docker-the-forest-dedicated-server
 
-## What is included?
-
 This repository includes a Sons of the Forest Dedicated Server based on Docker with Wine and an example config.
 
-## Do you need support for this Docker-Image?
+___
 
-- What to do?
-  - Feel free to create a NEW issue
-    - It is okay to "reference" that you might have the same problem as the person in issue #number
-  - Follow the instructions and answer the questions of people who are willing to help you
-  - If your issue is done, close it
-    - I will Inactivity-Close any issue thats not been active for a week
-- What NOT to do?
-  - Dont re-use issues!
-    - You are most likely to chat/spam/harrass thoose participants who didnt agree to be part of your / a new problem and might be totally out of context!
-  - If this happens, i reserve the rights to lock the issue or delete the comments, you have been warned!
+## Table of Contents
 
-## What you need to run this
+- [Docker - Sons of the Forest Dedicated Server](#docker---sons-of-the-forest-dedicated-server)
+  - [Table of Contents](#table-of-contents)
+  - [How to ask for support for this Docker image](#how-to-ask-for-support-for-this-docker-image)
+  - [Requirements](#requirements)
+  - [Minimum system requirements](#minimum-system-requirements)
+  - [Changelog](#changelog)
+  - [Wiki](#wiki)
+  - [Getting started](#getting-started)
+    - [Docker-Compose - Example](#docker-compose---example)
+  - [Planned features in the future](#planned-features-in-the-future)
+  - [Software used](#software-used)
 
-- Basic understanding of Docker, Docker Compose, Linux and Networking (Port-Forwarding/NAT)
+
+## How to ask for support for this Docker image
+
+If you need support for this Docker image:
+
+- Feel free to create a new issue.
+  - You can reference other issues if you're experiencing a similar problem via #issue-number.
+- Follow the instructions and answer the questions of people who are willing to help you.
+- Once your issue is resolved, please close it and please consider giving this repo and the [Docker-Hub repository](https://hub.docker.com/repository/docker/jammsen/sons-of-the-forest-dedicated-server) a star.
+- Please note that any issue that has been inactive for a week will be closed due to inactivity.
+
+Please avoid:
+
+- Reusing or necroing issues. This can lead to spam and may harass participants who didn't agree to be part of your new problem.
+- If this happens, we reserve the right to lock the issue or delete the comments, you have been warned!
+
+## Requirements
+
+To run this Docker image, you need a basic understanding of Docker, Docker-Compose, Linux, and Networking (Port-Forwarding/NAT).
+
+## Minimum system requirements
+
+| Resource | Minimum (2-4 Players)   | Recommended (4 Players) |
+| -------- | ----------------------- | ----------------------- |
+| CPU      | 2-4 CPU-Cores @ Mid GHz | 4+ CPU Cores @ High GHz |
+| RAM      | 8GB+ RAM                | 16GB+ RAM               |
+| Storage  | 12GB+                   | 20GB+ (SSD prefered)    |
+
+## Changelog
+
+You can find the [changelog here](CHANGELOG.md)
 
 ## Wiki
 
@@ -53,7 +82,7 @@ If you already hosted some containers, just follow these steps:
 
 1. Go to the directory you want to host your gameserver on your Dockernode
 2. Create a sub-directory called `game`
-3. Download the [docker-compose.yml](docker-compose.yml) or use the following example
+3. Download the [compose.yml](compose.yml) or use the following example
 4. Review the file and setup the settings you like
 5. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
 6. Start the container via Docker Compose
@@ -62,7 +91,6 @@ If you already hosted some containers, just follow these steps:
 ### Docker-Compose - Example
 
 ```yaml
-version: '3.9'
 services:
   sons-of-the-forest-dedicated-server:
     container_name: sons-of-the-forest-dedicated-server
@@ -73,6 +101,7 @@ services:
       PGID: 1000
       ALWAYS_UPDATE_ON_START: true
       SKIP_NETWORK_ACCESSIBILITY_TEST: true
+      FILTER_SHADER_AND_MESH_AND_WINE_DEBUG: true
     ports:
       - 8766:8766/udp
       - 27016:27016/udp
@@ -81,13 +110,30 @@ services:
       - ./game:/sonsoftheforest
 ```
 
+> **Note:** The `FILTER_SHADER_AND_MESH_AND_WINE_DEBUG` environment variable (default: true) controls whether Wine debug-logs and shader-related warning messages are filtered from the container logs. When set to true, it removes the following messages keeping your logs cleaner. Set to false if you want to see all shader warnings.
+> * Shader XYZ shader is not supported on this GPU
+> * WARNING: Shader Unsupported: 'XYZ' - All subshaders removed
+> * WARNING: Shader Did you use XYZ and omit this platform?
+> * WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+> * No mesh data available for mesh XYZ
+> * Couldn't create a Convex Mesh from source mesh XYZ
+> * 0060:fixme:mountmgr:harddisk_ioctl The DISK_PARTITION_INFO and DISK_DETECTION_INFO structures will not be filled
+> * 0240:fixme:wbemprox:enum_class_object_Next timeout not supported
+> * 0060:fixme:mountmgr:query_property Faking StorageDeviceProperty data
+> * 013c:fixme:ntdll:EtwEventSetInformation (deadbeef, 2, 00006FFFF011313C, 31) stub
+> * 0250:fixme:kernelbase:AppPolicyGetThreadInitializationType FFFFFFFFFFFFFFFA, 00007307F05EFF50
+> * 013c:fixme:system:NtUserGetDisplayConfigBufferSizes only returning active paths
+> * 013c:fixme:system:NtUserQueryDisplayConfig only returning active paths
+> * 013c:fixme:system:NtUserQueryDisplayConfig setting toplogyid to DISPLAYCONFIG_TOPOLOGY_INTERNAL
+> * 023c:fixme:cryptnet:check_ocsp_response_info check responder id
+
 ## Planned features in the future
 
 - Feel free to suggest features in the issues
 
 ## Software used
 
-- Debian Stable and SteamCMD via cm2network/steamcmd:root image as base-image
+- Debian Trixie and SteamCMD via cm2network/steamcmd:root image as base-image
 - gosu
 - procps
 - winbind
