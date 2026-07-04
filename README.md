@@ -82,7 +82,7 @@ If you already hosted some containers, just follow these steps:
 
 1. Go to the directory you want to host your gameserver on your Dockernode
 2. Create a sub-directory called `game`
-3. Download the [docker-compose.yml](docker-compose.yml) or use the following example
+3. Download the [compose.yml](compose.yml) or use the following example
 4. Review the file and setup the settings you like
 5. Setup Port-Forwarding or NAT for the ports in the Docker-Compose file
 6. Start the container via Docker Compose
@@ -91,7 +91,6 @@ If you already hosted some containers, just follow these steps:
 ### Docker-Compose - Example
 
 ```yaml
-version: '3.9'
 services:
   sons-of-the-forest-dedicated-server:
     container_name: sons-of-the-forest-dedicated-server
@@ -134,7 +133,7 @@ services:
 
 ## Software used
 
-- Debian Stable and SteamCMD via cm2network/steamcmd:root image as base-image
+- Debian Trixie and SteamCMD via cm2network/steamcmd:root image as base-image
 - gosu
 - procps
 - winbind

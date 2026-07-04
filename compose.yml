@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   sons-of-the-forest-dedicated-server:
     container_name: sons-of-the-forest-dedicated-server

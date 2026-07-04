@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+game
+steamcmd
+winedata
+test
+compose*.yml
+custom.env
