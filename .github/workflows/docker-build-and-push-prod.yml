@@ -9,7 +9,8 @@ on:
 
 jobs:
   docker-build-gameserver-image:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }} # Run only if tests pass and branch is "develop"
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master' }}
+    #if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }} # Run only if tests pass and branch is "develop"
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
